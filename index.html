@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Birds Observed at WGH Poetree, Thekkady</title>
+  <meta name="description" content="Field observation catalog of 23 avian species documented at WGH Poetree, Thekkady on 13th September 2026." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Noto+Serif+Malayalam:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #1b3823;
+      --primary-dark: #122818;
+      --primary-light: #2c5938;
+      --accent: #b8621b;
+      --bg: #f5f4ef;
+      --card-bg: #ffffff;
+      --text: #1b241d;
+      --text-muted: #5e6d62;
+      --border: #e3e0d8;
+      --shadow: 0 4px 16px rgba(0,0,0,0.06);
+      --radius: 12px;
+      --font-en: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-malayalam: 'Noto Serif Malayalam', serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-en);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+
+    /* Header / Hero */
+    .hero {
+      background: linear-gradient(180deg, #183320 0%, #204028 100%);
+      color: #faf9f5;
+      padding: 36px 20px 28px;
+      text-align: center;
+      position: relative;
+      border-bottom: 3px solid #b8621b;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      letter-spacing: 0.3px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 16px;
+      font-size: 0.9rem;
+      color: #cfdcd2;
+    }
+
+    .meta-pill {
+      background: rgba(255,255,255,0.1);
+      padding: 4px 12px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .meta-pill strong {
+      color: #ffffff;
+    }
+
+    /* Controls: Search & Filter */
+    .controls-bar {
+      max-width: 1320px;
+      margin: 20px auto 24px;
+      padding: 0 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1 1 280px;
+      background: var(--card-bg);
+      border-radius: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 6px 16px;
+    }
+
+    .icon-search {
+      width: 18px;
+      height: 18px;
+      color: var(--text-muted);
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+
+    .search-input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 0.95rem;
+      font-family: var(--font-en);
+      color: var(--text);
+      background: transparent;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      background: rgba(0,0,0,0.05);
+      padding: 4px;
+      border-radius: 24px;
+    }
+
+    .filter-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 20px;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(27, 56, 35, 0.3);
+    }
+
+    /* Grid Layout: mobile first (1 col -> 2 cols -> 3 cols -> 4 cols) */
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .birds-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 580px) {
+      .birds-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+    }
+
+    @media (min-width: 960px) {
+      .birds-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+    }
+
+    @media (min-width: 1240px) {
+      .birds-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+      }
+    }
+
+    /* Card Styling */
+    .bird-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .bird-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    /* Image Wrapper */
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      background-color: #e5e5dc;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.3s ease;
+      display: block;
+    }
+
+    .image-wrapper:hover .card-img {
+      transform: scale(1.04);
+    }
+
+    .badge-row {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .id-tag {
+      background: rgba(18, 40, 24, 0.88);
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(4px);
+    }
+
+    .mode-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 6px;
+      backdrop-filter: blur(4px);
+    }
+
+    .mode-sighting {
+      background: rgba(235, 248, 238, 0.95);
+      color: #175432;
+      border: 1px solid #a3d4b3;
+    }
+
+    .mode-call {
+      background: rgba(254, 243, 232, 0.95);
+      color: #8c4e09;
+      border: 1px solid #ecc69f;
+    }
+
+    .icon {
+      width: 12px;
+      height: 12px;
+    }
+
+    .zoom-hint {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.65);
+      color: #ffffff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .image-wrapper:hover .zoom-hint,
+    .image-wrapper:active .zoom-hint {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .icon-expand {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Card Details */
+    .card-content {
+      padding: 14px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex-grow: 1;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      line-height: 1.25;
+    }
+
+    .bird-num {
+      color: var(--accent);
+      font-size: 0.95rem;
+    }
+
+    .card-malayalam {
+      font-family: var(--font-malayalam);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #783f0f;
+      margin-top: 1px;
+      line-height: 1.35;
+    }
+
+    .card-sci-wrap {
+      margin-top: 4px;
+    }
+
+    .card-sci {
+      font-family: var(--font-serif);
+      font-size: 1.02rem;
+      color: var(--primary-light);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border-bottom: 1px dotted var(--primary-light);
+      transition: color 0.15s, border-bottom-color 0.15s;
+    }
+
+    .card-sci:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .icon-ext {
+      width: 11px;
+      height: 11px;
+      opacity: 0.7;
+    }
+
+    /* No results message */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    /* Lightbox Modal */
+    .lightbox-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(10, 15, 12, 0.92);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .lightbox-modal.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 1100px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+
+    .lightbox-caption {
+      color: #ffffff;
+      text-align: center;
+      margin-top: 14px;
+    }
+
+    .lightbox-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .lightbox-malayalam {
+      font-family: var(--font-malayalam);
+      font-size: 1.2rem;
+      color: #f6ad55;
+      margin: 2px 0;
+    }
+
+    .lightbox-sci {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: #9ae6b4;
+      text-decoration: underline;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -45px;
+      right: 0;
+      background: rgba(255,255,255,0.2);
+      color: #ffffff;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255,255,255,0.35);
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.18);
+      color: #ffffff;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-nav:hover {
+      background: rgba(255,255,255,0.35);
+    }
+
+    .lightbox-prev {
+      left: -60px;
+    }
+
+    .lightbox-next {
+      right: -60px;
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-prev {
+        left: 8px;
+      }
+      .lightbox-next {
+        right: 8px;
+      }
+      .lightbox-close {
+        top: 10px;
+        right: 10px;
+      }
+    }
+
+    /* Footer */
+    .site-footer {
+      text-align: center;
+      padding: 30px 16px 20px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Banner -->
+  <header class="hero">
+    <h1 class="hero-title">Birds Observed at WGH Poetree, Thekkady</h1>
+    <div class="hero-meta">
+      <span class="meta-pill"><strong>Date:</strong> 13th September 2026</span>
+      <span class="meta-pill"><strong>Observation Time:</strong> 7:00 AM to 8:00 AM</span>
+      <span class="meta-pill"><strong>Weather:</strong> Cloudy</span>
+      <span class="meta-pill"><strong>Total Species:</strong> 23</span>
+    </div>
+  </header>
+
+  <!-- Controls: Search & Filters -->
+  <section class="controls-bar">
+    <div class="search-box">
+      <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search by English, Malayalam or Scientific name..." oninput="handleSearch()" />
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-btn active" onclick="setFilter('all', this)">All (23)</button>
+      <button class="filter-btn" onclick="setFilter('sighting', this)">Sightings (16)</button>
+      <button class="filter-btn" onclick="setFilter('call', this)">Calls (7)</button>
+    </div>
+  </section>
+
+  <!-- Main Birds Grid -->
+  <main class="container">
+    <div class="birds-grid" id="birdsGrid">
+      
+    <article class="bird-card" data-id="1" data-mode="call" data-name="malabar whistling thrush" data-mal="ചൂളക്കാക്ക" data-sci="myophonus horsfieldii">
+      <div class="image-wrapper" onclick="openLightbox(0)">
+        <img src="bird_images_landscape/bird_01_ls.jpg" alt="Malabar Whistling Thrush" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#01</span>
+          <span class="mode-tag mode-call"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg> Call</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">01.</span> Malabar Whistling Thrush</h2>
+        <p class="card-malayalam">ചൂളക്കാക്ക</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/mawthr1?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Malabar Whistling Thrush on eBird">
+            <i>Myophonus horsfieldii</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="2" data-mode="call" data-name="puff-throated babbler" data-mal="പുള്ളി ചിലപ്പൻ" data-sci="pellorneum ruficeps">
+      <div class="image-wrapper" onclick="openLightbox(1)">
+        <img src="bird_images_landscape/bird_02_ls.jpg" alt="Puff-throated Babbler" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#02</span>
+          <span class="mode-tag mode-call"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg> Call</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">02.</span> Puff-throated Babbler</h2>
+        <p class="card-malayalam">പുള്ളി ചിലപ്പൻ</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/putbab1?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Puff-throated Babbler on eBird">
+            <i>Pellorneum ruficeps</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="3" data-mode="call" data-name="greenish warbler" data-mal="ഇളം പച്ച കുരുവി" data-sci="phylloscopus trochiloides">
+      <div class="image-wrapper" onclick="openLightbox(2)">
+        <img src="bird_images_landscape/bird_03_ls.jpg" alt="Greenish Warbler" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#03</span>
+          <span class="mode-tag mode-call"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg> Call</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">03.</span> Greenish Warbler</h2>
+        <p class="card-malayalam">ഇളം പച്ച കുരുവി</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/grewar3?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Greenish Warbler on eBird">
+            <i>Phylloscopus trochiloides</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="4" data-mode="sighting" data-name="orange minivet" data-mal="തീക്കുരുവി" data-sci="pericrocotus flammeus">
+      <div class="image-wrapper" onclick="openLightbox(3)">
+        <img src="bird_images_landscape/bird_04_ls.jpg" alt="Orange Minivet" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#04</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">04.</span> Orange Minivet</h2>
+        <p class="card-malayalam">തീക്കുരുവി</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/scamin3?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Orange Minivet on eBird">
+            <i>Pericrocotus flammeus</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="5" data-mode="sighting" data-name="rufous treepie" data-mal="ഓലഞ്ഞാലി" data-sci="dendrocitta vagabunda">
+      <div class="image-wrapper" onclick="openLightbox(4)">
+        <img src="bird_images_landscape/bird_05_ls.jpg" alt="Rufous Treepie" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#05</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">05.</span> Rufous Treepie</h2>
+        <p class="card-malayalam">ഓലഞ്ഞാലി</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/ruftre2?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Rufous Treepie on eBird">
+            <i>Dendrocitta vagabunda</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="6" data-mode="sighting" data-name="white-bellied treepie" data-mal="കാട്ടുഞ്ഞാലി" data-sci="dendrocitta leucogastra">
+      <div class="image-wrapper" onclick="openLightbox(5)">
+        <img src="bird_images_landscape/bird_06_ls.jpg" alt="White-bellied Treepie" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#06</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">06.</span> White-bellied Treepie</h2>
+        <p class="card-malayalam">കാട്ടുഞ്ഞാലി</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/whbtre1?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View White-bellied Treepie on eBird">
+            <i>Dendrocitta leucogastra</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="7" data-mode="sighting" data-name="greater racket-tailed drongo" data-mal="കാടുമുഴക്കി" data-sci="dicrurus paradiseus">
+      <div class="image-wrapper" onclick="openLightbox(6)">
+        <img src="bird_images_landscape/bird_07_ls.jpg" alt="Greater Racket-tailed Drongo" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#07</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">07.</span> Greater Racket-tailed Drongo</h2>
+        <p class="card-malayalam">കാടുമുഴക്കി</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/grtdro1?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Greater Racket-tailed Drongo on eBird">
+            <i>Dicrurus paradiseus</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="8" data-mode="sighting" data-name="nilgiri flowerpecker" data-mal="നീലഗിരി ഇത്തിക്കണ്ണിക്കുരുവി" data-sci="dicaeum concolor">
+      <div class="image-wrapper" onclick="openLightbox(7)">
+        <img src="bird_images_landscape/bird_08_ls.jpg" alt="Nilgiri Flowerpecker" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#08</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">08.</span> Nilgiri Flowerpecker</h2>
+        <p class="card-malayalam">നീലഗിരി ഇത്തിക്കണ്ണിക്കുരുവി</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/plaflo1?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Nilgiri Flowerpecker on eBird">
+            <i>Dicaeum concolor</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="9" data-mode="sighting" data-name="common myna" data-mal="നാട്ടുമൈന" data-sci="acridotheres tristis">
+      <div class="image-wrapper" onclick="openLightbox(8)">
+        <img src="bird_images_landscape/bird_09_ls.jpg" alt="Common Myna" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#09</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">09.</span> Common Myna</h2>
+        <p class="card-malayalam">നാട്ടുമൈന</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/commyn?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Common Myna on eBird">
+            <i>Acridotheres tristis</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="10" data-mode="sighting" data-name="southern hill myna" data-mal="കാട്ടുമൈന" data-sci="gracula indica">
+      <div class="image-wrapper" onclick="openLightbox(9)">
+        <img src="bird_images_landscape/bird_10_ls.jpg" alt="Southern Hill Myna" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#10</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">10.</span> Southern Hill Myna</h2>
+        <p class="card-malayalam">കാട്ടുമൈന</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/sohmyn1?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Southern Hill Myna on eBird">
+            <i>Gracula indica</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="11" data-mode="call" data-name="indian white-eye" data-mal="വെള്ളി കണ്ണി കുരുവി" data-sci="zosterops palpebrosus">
+      <div class="image-wrapper" onclick="openLightbox(10)">
+        <img src="bird_images_landscape/bird_11_ls.jpg" alt="Indian White-eye" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#11</span>
+          <span class="mode-tag mode-call"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg> Call</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">11.</span> Indian White-eye</h2>
+        <p class="card-malayalam">വെള്ളി കണ്ണി കുരുവി</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/indwhe1?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Indian White-eye on eBird">
+            <i>Zosterops palpebrosus</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="12" data-mode="sighting" data-name="yellow-browed bulbul" data-mal="മഞ്ഞ ചിന്നൻ" data-sci="acritillas indica">
+      <div class="image-wrapper" onclick="openLightbox(11)">
+        <img src="bird_images_landscape/bird_12_ls.jpg" alt="Yellow-browed Bulbul" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#12</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">12.</span> Yellow-browed Bulbul</h2>
+        <p class="card-malayalam">മഞ്ഞ ചിന്നൻ</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/yebbul3?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Yellow-browed Bulbul on eBird">
+            <i>Acritillas indica</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="13" data-mode="sighting" data-name="red-whiskered bulbul" data-mal="ഇരട്ടത്തലച്ചി" data-sci="pycnonotus jocosus">
+      <div class="image-wrapper" onclick="openLightbox(12)">
+        <img src="bird_images_landscape/bird_13_ls.jpg" alt="Red-whiskered Bulbul" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#13</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">13.</span> Red-whiskered Bulbul</h2>
+        <p class="card-malayalam">ഇരട്ടത്തലച്ചി</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/rewbul?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Red-whiskered Bulbul on eBird">
+            <i>Pycnonotus jocosus</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="14" data-mode="sighting" data-name="white-cheeked barbet" data-mal="ചിന്നക്കുട്ടുറുവൻ" data-sci="psilopogon viridis">
+      <div class="image-wrapper" onclick="openLightbox(13)">
+        <img src="bird_images_landscape/bird_14_ls.jpg" alt="White-cheeked Barbet" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#14</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">14.</span> White-cheeked Barbet</h2>
+        <p class="card-malayalam">ചിന്നക്കുട്ടുറുവൻ</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/whcbar1?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View White-cheeked Barbet on eBird">
+            <i>Psilopogon viridis</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="15" data-mode="sighting" data-name="malabar flameback" data-mal="കാട്ടുമരംകൊത്തി" data-sci="chrysocolaptes socialis">
+      <div class="image-wrapper" onclick="openLightbox(14)">
+        <img src="bird_images_landscape/bird_15_ls.jpg" alt="Malabar Flameback" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#15</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">15.</span> Malabar Flameback</h2>
+        <p class="card-malayalam">കാട്ടുമരംകൊത്തി</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/grefla4?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Malabar Flameback on eBird">
+            <i>Chrysocolaptes socialis</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="16" data-mode="sighting" data-name="greater coucal" data-mal="ചെമ്പോത്ത്" data-sci="centropus sinensis">
+      <div class="image-wrapper" onclick="openLightbox(15)">
+        <img src="bird_images_landscape/bird_16_ls.jpg" alt="Greater Coucal" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#16</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">16.</span> Greater Coucal</h2>
+        <p class="card-malayalam">ചെമ്പോത്ത്</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/grecou1?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Greater Coucal on eBird">
+            <i>Centropus sinensis</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="17" data-mode="call" data-name="jungle owlet" data-mal="ചെമ്പൻ നത്ത്" data-sci="glaucidium radiatum">
+      <div class="image-wrapper" onclick="openLightbox(16)">
+        <img src="bird_images_landscape/bird_17_ls.jpg" alt="Jungle Owlet" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#17</span>
+          <span class="mode-tag mode-call"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg> Call</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">17.</span> Jungle Owlet</h2>
+        <p class="card-malayalam">ചെമ്പൻ നത്ത്</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/junowl1?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Jungle Owlet on eBird">
+            <i>Glaucidium radiatum</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="18" data-mode="call" data-name="spotted dove" data-mal="അരിപ്രാവ്" data-sci="spilopelia chinensis">
+      <div class="image-wrapper" onclick="openLightbox(17)">
+        <img src="bird_images_landscape/bird_18_ls.jpg" alt="Spotted Dove" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#18</span>
+          <span class="mode-tag mode-call"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg> Call</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">18.</span> Spotted Dove</h2>
+        <p class="card-malayalam">അരിപ്രാവ്</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/spodov?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Spotted Dove on eBird">
+            <i>Spilopelia chinensis</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="19" data-mode="sighting" data-name="common tailorbird" data-mal="തുന്നാരൻ" data-sci="orthotomus sutorius">
+      <div class="image-wrapper" onclick="openLightbox(18)">
+        <img src="bird_images_landscape/bird_19_ls.jpg" alt="Common Tailorbird" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#19</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">19.</span> Common Tailorbird</h2>
+        <p class="card-malayalam">തുന്നാരൻ</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/comtai1" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Common Tailorbird on eBird">
+            <i>Orthotomus sutorius</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="20" data-mode="sighting" data-name="golden-fronted leafbird" data-mal="കാട്ടിലക്കിളി" data-sci="chloropsis aurifrons">
+      <div class="image-wrapper" onclick="openLightbox(19)">
+        <img src="bird_images_landscape/bird_20_ls.jpg" alt="Golden-fronted Leafbird" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#20</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">20.</span> Golden-fronted Leafbird</h2>
+        <p class="card-malayalam">കാട്ടിലക്കിളി</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/goflea1?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Golden-fronted Leafbird on eBird">
+            <i>Chloropsis aurifrons</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="21" data-mode="sighting" data-name="yellow-billed babbler" data-mal="പൂത്താങ്കീരി" data-sci="argya affinis">
+      <div class="image-wrapper" onclick="openLightbox(20)">
+        <img src="bird_images_landscape/bird_21_ls.jpg" alt="Yellow-billed Babbler" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#21</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">21.</span> Yellow-billed Babbler</h2>
+        <p class="card-malayalam">പൂത്താങ്കീരി</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/yebbab1?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Yellow-billed Babbler on eBird">
+            <i>Argya affinis</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="22" data-mode="sighting" data-name="white-throated kingfisher" data-mal="മീൻകൊത്തിച്ചാത്തൻ" data-sci="halcyon smyrnensis">
+      <div class="image-wrapper" onclick="openLightbox(21)">
+        <img src="bird_images_landscape/bird_22_ls.jpg" alt="White-throated Kingfisher" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#22</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">22.</span> White-throated Kingfisher</h2>
+        <p class="card-malayalam">മീൻകൊത്തിച്ചാത്തൻ</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/whtkin2?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View White-throated Kingfisher on eBird">
+            <i>Halcyon smyrnensis</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="bird-card" data-id="23" data-mode="sighting" data-name="malabar parakeet" data-mal="നീലത്തത്ത" data-sci="psittacula columboides">
+      <div class="image-wrapper" onclick="openLightbox(22)">
+        <img src="bird_images_landscape/bird_23_ls.jpg" alt="Malabar Parakeet" loading="lazy" class="card-img" />
+        <div class="badge-row">
+          <span class="id-tag">#23</span>
+          <span class="mode-tag mode-sighting"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="14" r="5"/><circle cx="17" cy="14" r="5"/><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M7 7V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v3"/><path d="M12 14v4"/></svg> Sighting</span>
+        </div>
+        <div class="zoom-hint">
+          <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title"><span class="bird-num">23.</span> Malabar Parakeet</h2>
+        <p class="card-malayalam">നീലത്തത്ത</p>
+        <div class="card-sci-wrap">
+          <a href="https://ebird.org/species/malpar1?siteLanguage=en_IN" target="_blank" rel="noopener noreferrer" class="card-sci" title="View Malabar Parakeet on eBird">
+            <i>Psittacula columboides</i> <svg class="icon-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+    
+    </div>
+    <div class="no-results" id="noResults">
+      No birds matching your search query.
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for full-screen viewing -->
+  <div class="lightbox-modal" id="lightboxModal" onclick="closeLightboxOnBackdrop(event)">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()" title="Close">&times;</button>
+      <button class="lightbox-nav lightbox-prev" onclick="prevBird(event)" title="Previous">&#10094;</button>
+      <button class="lightbox-nav lightbox-next" onclick="nextBird(event)" title="Next">&#10095;</button>
+      <img src="" alt="" id="lightboxImg" class="lightbox-img" />
+      <div class="lightbox-caption">
+        <div class="lightbox-title" id="lightboxTitle"></div>
+        <div class="lightbox-malayalam" id="lightboxMalayalam"></div>
+        <div><a href="#" target="_blank" id="lightboxSci" class="lightbox-sci"></a></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>Bird observation by the team led by Muhasin C. T. as part of Reunite '17</p>
+  </footer>
+
+  <script>
+    const birdsData = [{"id": 1, "name": "Malabar Whistling Thrush", "malayalam": "ചൂളക്കാക്ക", "scientific": "Myophonus horsfieldii", "url": "https://ebird.org/species/mawthr1?siteLanguage=en_IN", "mode": "Call"}, {"id": 2, "name": "Puff-throated Babbler", "malayalam": "പുള്ളി ചിലപ്പൻ", "scientific": "Pellorneum ruficeps", "url": "https://ebird.org/species/putbab1?siteLanguage=en_IN", "mode": "Call"}, {"id": 3, "name": "Greenish Warbler", "malayalam": "ഇളം പച്ച കുരുവി", "scientific": "Phylloscopus trochiloides", "url": "https://ebird.org/species/grewar3?siteLanguage=en_IN", "mode": "Call"}, {"id": 4, "name": "Orange Minivet", "malayalam": "തീക്കുരുവി", "scientific": "Pericrocotus flammeus", "url": "https://ebird.org/species/scamin3?siteLanguage=en_IN", "mode": "Sighting"}, {"id": 5, "name": "Rufous Treepie", "malayalam": "ഓലഞ്ഞാലി", "scientific": "Dendrocitta vagabunda", "url": "https://ebird.org/species/ruftre2?siteLanguage=en_IN", "mode": "Sighting"}, {"id": 6, "name": "White-bellied Treepie", "malayalam": "കാട്ടുഞ്ഞാലി", "scientific": "Dendrocitta leucogastra", "url": "https://ebird.org/species/whbtre1?siteLanguage=en_IN", "mode": "Sighting"}, {"id": 7, "name": "Greater Racket-tailed Drongo", "malayalam": "കാടുമുഴക്കി", "scientific": "Dicrurus paradiseus", "url": "https://ebird.org/species/grtdro1?siteLanguage=en_IN", "mode": "Sighting"}, {"id": 8, "name": "Nilgiri Flowerpecker", "malayalam": "നീലഗിരി ഇത്തിക്കണ്ണിക്കുരുവി", "scientific": "Dicaeum concolor", "url": "https://ebird.org/species/plaflo1?siteLanguage=en_IN", "mode": "Sighting"}, {"id": 9, "name": "Common Myna", "malayalam": "നാട്ടുമൈന", "scientific": "Acridotheres tristis", "url": "https://ebird.org/species/commyn?siteLanguage=en_IN", "mode": "Sighting"}, {"id": 10, "name": "Southern Hill Myna", "malayalam": "കാട്ടുമൈന", "scientific": "Gracula indica", "url": "https://ebird.org/species/sohmyn1?siteLanguage=en_IN", "mode": "Sighting"}, {"id": 11, "name": "Indian White-eye", "malayalam": "വെള്ളി കണ്ണി കുരുവി", "scientific": "Zosterops palpebrosus", "url": "https://ebird.org/species/indwhe1?siteLanguage=en_IN", "mode": "Call"}, {"id": 12, "name": "Yellow-browed Bulbul", "malayalam": "മഞ്ഞ ചിന്നൻ", "scientific": "Acritillas indica", "url": "https://ebird.org/species/yebbul3?siteLanguage=en_IN", "mode": "Sighting"}, {"id": 13, "name": "Red-whiskered Bulbul", "malayalam": "ഇരട്ടത്തലച്ചി", "scientific": "Pycnonotus jocosus", "url": "https://ebird.org/species/rewbul?siteLanguage=en_IN", "mode": "Sighting"}, {"id": 14, "name": "White-cheeked Barbet", "malayalam": "ചിന്നക്കുട്ടുറുവൻ", "scientific": "Psilopogon viridis", "url": "https://ebird.org/species/whcbar1?siteLanguage=en_IN", "mode": "Sighting"}, {"id": 15, "name": "Malabar Flameback", "malayalam": "കാട്ടുമരംകൊത്തി", "scientific": "Chrysocolaptes socialis", "url": "https://ebird.org/species/grefla4?siteLanguage=en_IN", "mode": "Sighting"}, {"id": 16, "name": "Greater Coucal", "malayalam": "ചെമ്പോത്ത്", "scientific": "Centropus sinensis", "url": "https://ebird.org/species/grecou1?siteLanguage=en_IN", "mode": "Sighting"}, {"id": 17, "name": "Jungle Owlet", "malayalam": "ചെമ്പൻ നത്ത്", "scientific": "Glaucidium radiatum", "url": "https://ebird.org/species/junowl1?siteLanguage=en_IN", "mode": "Call"}, {"id": 18, "name": "Spotted Dove", "malayalam": "അരിപ്രാവ്", "scientific": "Spilopelia chinensis", "url": "https://ebird.org/species/spodov?siteLanguage=en_IN", "mode": "Call"}, {"id": 19, "name": "Common Tailorbird", "malayalam": "തുന്നാരൻ", "scientific": "Orthotomus sutorius", "url": "https://ebird.org/species/comtai1", "mode": "Sighting"}, {"id": 20, "name": "Golden-fronted Leafbird", "malayalam": "കാട്ടിലക്കിളി", "scientific": "Chloropsis aurifrons", "url": "https://ebird.org/species/goflea1?siteLanguage=en_IN", "mode": "Sighting"}, {"id": 21, "name": "Yellow-billed Babbler", "malayalam": "പൂത്താങ്കീരി", "scientific": "Argya affinis", "url": "https://ebird.org/species/yebbab1?siteLanguage=en_IN", "mode": "Sighting"}, {"id": 22, "name": "White-throated Kingfisher", "malayalam": "മീൻകൊത്തിച്ചാത്തൻ", "scientific": "Halcyon smyrnensis", "url": "https://ebird.org/species/whtkin2?siteLanguage=en_IN", "mode": "Sighting"}, {"id": 23, "name": "Malabar Parakeet", "malayalam": "നീലത്തത്ത", "scientific": "Psittacula columboides", "url": "https://ebird.org/species/malpar1?siteLanguage=en_IN", "mode": "Sighting"}];
+    let currentBirdIndex = 0;
+    let currentFilter = 'all';
+
+    function setFilter(filter, btn) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterCards();
+    }
+
+    function handleSearch() {
+      filterCards();
+    }
+
+    function filterCards() {
+      const query = document.getElementById('searchInput').value.trim().toLowerCase();
+      const cards = document.querySelectorAll('.bird-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const mode = card.dataset.mode;
+        const name = card.dataset.name;
+        const mal = card.dataset.mal;
+        const sci = card.dataset.sci;
+
+        const matchesFilter = (currentFilter === 'all' || mode === currentFilter);
+        const matchesQuery = !query || name.includes(query) || mal.includes(query) || sci.includes(query);
+
+        if (matchesFilter && matchesQuery) {
+          card.style.display = '';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    function openLightbox(index) {
+      currentBirdIndex = index;
+      const b = birdsData[index];
+      const bidStr = String(b.id).padStart(2, '0');
+      document.getElementById('lightboxImg').src = `bird_images_landscape/bird_${bidStr}_ls.jpg`;
+      document.getElementById('lightboxTitle').textContent = `${bidStr}. ${b.name}`;
+      document.getElementById('lightboxMalayalam').textContent = b.malayalam;
+      const sciLink = document.getElementById('lightboxSci');
+      sciLink.textContent = b.scientific;
+      sciLink.href = b.url;
+
+      document.getElementById('lightboxModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function closeLightboxOnBackdrop(e) {
+      if (e.target.id === 'lightboxModal') {
+        closeLightbox();
+      }
+    }
+
+    function prevBird(e) {
+      if (e) e.stopPropagation();
+      currentBirdIndex = (currentBirdIndex - 1 + birdsData.length) % birdsData.length;
+      openLightbox(currentBirdIndex);
+    }
+
+    function nextBird(e) {
+      if (e) e.stopPropagation();
+      currentBirdIndex = (currentBirdIndex + 1) % birdsData.length;
+      openLightbox(currentBirdIndex);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('lightboxModal');
+      if (modal.classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevBird();
+        if (e.key === 'ArrowRight') nextBird();
+      }
+    });
+  </script>
+</body>
+</html>
